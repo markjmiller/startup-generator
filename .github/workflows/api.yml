@@ -1,0 +1,63 @@
+name: Build API
+on:
+  push:
+    paths: 
+      - .github/workflows/api.yml
+      - api/**
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.8]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install tox
+        run: pip install tox
+
+      - name: Run tox
+        working-directory: api
+        run: tox -e py  # Run tox using the version of Python in `PATH`
+
+      - name: zip release
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: app.zip
+          directory: ./api
+          exclusions: 'tests/* .ebignore .gitignore requirements.dev tox.ini'
+
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: api-${{ github.run_number }}
+          path: ./api/app.zip
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: api-${{ github.run_number }}
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v10
+      with:
+        aws_access_key: ${{ secrets.AWSAccessKeyId }}
+        aws_secret_key: ${{ secrets.AWSSecretKey }}
+        application_name: startup-generator-api
+        environment_name: api-production
+        version_label: ${{ github.run_number }}
+        region: us-west-2
+        deployment_package: app.zip

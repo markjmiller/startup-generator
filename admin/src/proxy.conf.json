@@ -1,0 +1,42 @@
+{
+    "/all_words": {
+        "target": "http://localhost:5000",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/all_words" : "http://localhost:5000/all_words"
+        }
+    },
+    "/add": {
+        "target": "http://localhost:5000",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/add" : "http://localhost:5000/add"
+        }
+    },
+    "/delete": {
+        "target": "http://localhost:5000",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/delete" : "http://localhost:5000/delete"
+        }
+    },
+    "/logout": {
+        "target": "http://localhost:5000",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/logout" : "http://localhost:5000/logout"
+        }
+    },
+    "/login": {
+        "target": "http://localhost:5000",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/login" : "http://localhost:5000/login"
+        }
+    }
+}

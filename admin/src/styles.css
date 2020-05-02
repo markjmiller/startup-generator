@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*
+Defaults to -4, which can make scrollbars appear in parent container
+It also just looks nicer like this
+*/
+div.mat-chip-list-wrapper {
+    margin: 0;
+}
+
+app-words .mat-tab-labels :last-child.mat-tab-label {
+    min-width: 0;
+    padding: 0 12px;
+    color: unset;
+    opacity: unset;
+}

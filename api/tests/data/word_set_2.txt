@@ -1,0 +1,10 @@
+cats
+barbers
+friends
+dating
+loneliness
+babies
+coworkers
+groceries
+ridesharing
+pets

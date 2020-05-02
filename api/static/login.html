@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="favicon">
+    <style>
+      body {
+        background: rgb(75,137,203);
+        background: -moz-radial-gradient(circle, rgba(75,137,203,1) 0%, rgba(50,110,148,1) 100%);
+        background: -webkit-radial-gradient(circle, rgba(75,137,203,1) 0%, rgba(50,110,148,1) 100%);
+        background: radial-gradient(circle, rgba(75,137,203,1) 0%, rgba(50,110,148,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4b89cb",endColorstr="#326e94",GradientType=1);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;   
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <form class="col-xs-10 col-sm-8 col-md-6 col-lg-4" action="{{ url_for('login') }}" method="post">
+    {%- if message -%}
+          <div class="alert alert-danger" role="alert">
+            username or password is invalid
+          </div>
+    {%- endif -%}
+          <div class="form-group">
+            <input type="text" class="form-control" id="usernameInput" placeholder="username" name="username" title="username" />
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" id="passwordInput" placeholder="password" name="password" title="password"/>
+          </div>
+          <button type="submit" class="btn btn-dark btn-lg">login</button>
+        </form>   
+      </div>
+    </div>
+
+  </body>
+</html>

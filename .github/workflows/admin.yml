@@ -1,0 +1,74 @@
+name: Build Admin
+on:
+  push:
+    paths:
+      - .github/workflows/admin.yml
+      - admin/**
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm ci and npm run build
+        working-directory: admin
+        run: |
+          npm ci
+          npm run build
+
+      - name: zip release
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: app.zip
+          directory: admin/dist/admin
+
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: admin-${{ github.run_number }}
+          path: admin/dist/admin/app.zip
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: admin-${{ github.run_number }}
+
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: unzip -qq app.zip -d ./app
+
+    - name: Deploy to S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWSS3AdminBucket }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyId }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretKey }}
+        AWS_REGION: 'us-west-2'
+        SOURCE_DIR: 'app'

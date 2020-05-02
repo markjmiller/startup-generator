@@ -1,0 +1,13 @@
+<mat-tab-group>
+    <mat-tab label="Word Set 1">
+        <app-words-list [set_index]=0></app-words-list>
+    </mat-tab>
+    <mat-tab label="Word Set 2">
+        <app-words-list [set_index]=1></app-words-list>
+    </mat-tab>
+    <mat-tab disabled>
+        <ng-template mat-tab-label>
+            <button mat-flat-button color="warn" [disabled]="!canUndo" (click)="undo()">Undo</button>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,7 @@
+.words-list {
+    width: 100%;
+}
+
+mat-form-field mat-chip-list input {
+    padding-left: 12px;
+}

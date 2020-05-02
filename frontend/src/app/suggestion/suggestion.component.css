@@ -1,0 +1,18 @@
+.ws-1 {
+    margin-left: .15rem;
+    margin-right: .15rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.ws-2 {
+    margin-left: .5rem;
+    margin-right: .5rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}

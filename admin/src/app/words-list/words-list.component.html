@@ -1,0 +1,17 @@
+<mat-form-field #wordForm class="words-list" appearance="fill">
+    <mat-chip-list #chipList aria-label="Words selection">
+        <input autofocus cdkFocusInitial #wordInput placeholder="New word..."
+               (input)="onInputChange($event.target.value)"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+        <mat-chip *ngFor="let word of words | orderByID | search:searchValue"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="remove(word)">
+            {{ word.word }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+</mat-form-field>
