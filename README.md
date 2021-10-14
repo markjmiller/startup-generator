@@ -1,6 +1,8 @@
 # Startup Idea Generator
 
-This web application generates ideas for your next billion dollar startup company. Ideas are generated in the form "\<idea> for \<thing>". Example: "LinkedIn for Cats".
+This web application generates ideas for your next billion dollar startup company. Ideas are generated in the form "\<idea> for \<thing>".
+
+![](/readme_images/frontend.png)
 
 ## Why?
 
